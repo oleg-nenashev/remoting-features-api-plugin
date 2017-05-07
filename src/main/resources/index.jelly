@@ -1,0 +1,4 @@
+<?jelly escape-by-default='true'?>
+<div>
+  Provides common logic for Jenkins agents support including Remoting protocol handlers.
+</div>
