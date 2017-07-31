@@ -24,6 +24,7 @@
 package org.jenkinsci.plugins.remoting.settings;
 
 import hudson.util.VersionNumber;
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import org.jenkinsci.plugins.remoting.compat.Messages;
 
@@ -56,19 +57,35 @@ public enum RemotingFeature {
         @Nonnull
         private final VersionNumber since;
         
-        private FeatureDescriptor(@Nonnull String since) {
+        @CheckForNull
+        private final VersionNumber coreSince;
+        
+        private FeatureDescriptor(@Nonnull String since, @CheckForNull String coreSince) {
             this.since = new VersionNumber(since);
+            this.coreSince = coreSince != null ? new VersionNumber(coreSince) : null;
         }
 
         /**
          * Version of Remoting which includes the feature.
          * 
-         * There is no way to retrieve Jenkins core version in this API,
-         * because there is a plan to make Remoting pluggable at some point.
+         * 
          * @return Version of Remoting, which includes the feature.
          */
         @Nonnull
         public VersionNumber getSince() {
+            return since;
+        }
+        
+        /**
+         * Tries to get the Core version, which supports the feature.
+         * 
+         * @return Core version, which is guaranteed to support the feature.
+         *         {@code null} if there is no known version.
+         *         In such case the Remoting version in the core should be checked using the 
+         *         {@link #getSince()} method
+         */
+        @CheckForNull
+        public VersionNumber getCoreSince() {
             return since;
         }
         
@@ -78,12 +95,23 @@ public enum RemotingFeature {
         
         @Nonnull
         public abstract String getDocumentationURL();
+        
+        /**
+         * Checks if the the feature is applicable to the specified Remoting version.
+         * 
+         * @param remotingVersion Remoting version
+         * @return {@code true} if the feature is supported by the specified Remoting version
+         */
+        public boolean isApplicable(@Nonnull VersionNumber remotingVersion) {
+            return remotingVersion.isNewerThan(since);
+        }
     }
     
     public static final class WorkDirFeature extends FeatureDescriptor {
 
         private WorkDirFeature() {
-            super("3.8");
+            // The feature is available in 3.8, but there are known defects
+            super("3.10", "2.68");
         }
 
         @Override
