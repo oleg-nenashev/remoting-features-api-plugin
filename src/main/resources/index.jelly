@@ -1,4 +1,6 @@
 <?jelly escape-by-default='true'?>
 <div>
-  Provides common logic for Jenkins agents support including Remoting protocol handlers.
+  Provides common logic for Jenkins Remoting configuration.
+  The purpose of this plugin is to make Remoting features available in newer Jenkins versions
+  without bumping the Jenkins core dependency.
 </div>
