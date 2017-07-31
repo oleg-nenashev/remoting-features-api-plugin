@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.jenkinsci.plugins.remoting.settings;
+package org.jenkinsci.plugins.remoting.features;
 
 import hudson.util.VersionNumber;
 import javax.annotation.CheckForNull;

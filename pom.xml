@@ -9,11 +9,11 @@
   </parent>
 
   <!--TODO: this artifact ID may be unclear-->
-  <artifactId>remoting-settings</artifactId>
+  <artifactId>remoting-features-api</artifactId>
   <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>Jenkins Remoting Settings Plugin</name>
-  <description>Provides logic for working with Jenkins agents and other clients via Remoting</description>
+  <name>Jenkins Remoting Features API Plugin</name>
+  <description>Provides generic API for Jenkins Remoting features</description>
   <url>TODO</url>
 
   <licenses>
